@@ -22,8 +22,6 @@ class MainActivity : AppCompatActivity(), MyImageRequestListener.Callback {
         my_image_view.isClickable = true
     }
 
-    private lateinit var requestManager: RequestManager
-
     private val imageList = listOf(
             "https://images.pexels.com/photos/46239/salmon-dish-food-meal-46239.jpeg",
             "https://flybubble.com/media/wysiwyg/images/home/mainpage-box-5L.jpg",
@@ -41,8 +39,6 @@ class MainActivity : AppCompatActivity(), MyImageRequestListener.Callback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        requestManager = Glide.with(this)
-
         my_image_view.setOnClickListener {
             loadImage(imageList[imageIndex++])
             my_image_view.isClickable = false
@@ -55,7 +51,7 @@ class MainActivity : AppCompatActivity(), MyImageRequestListener.Callback {
                 .centerCrop()
                 .transforms(CenterCrop(), RoundedCorners(1000))
 
-        requestManager.load(MyImageModel(url))
+        Glide.with(this).load(MyImageModel(url))
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .thumbnail(
                         Glide.with(this)
